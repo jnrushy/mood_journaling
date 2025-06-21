@@ -15,7 +15,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import io
@@ -436,20 +436,29 @@ def main():
         st.session_state.start_date = min_date
         st.session_state.end_date = max_date
 
+    # Define default dates and ensure they are within the data's range
+    default_start = date(2025, 1, 1)
+    default_end = date(2025, 6, 1)
+
+    if not (min_date <= default_start <= max_date):
+        default_start = min_date
+    if not (min_date <= default_end <= max_date):
+        default_end = max_date
+
     start_date = st.sidebar.date_input(
         'Start date',
-        st.session_state.get('start_date', min_date),
+        st.session_state.get('start_date', default_start),
         min_value=min_date,
         max_value=max_date,
-        key='start_date_input'
+        key='start_date'
     )
     
     end_date = st.sidebar.date_input(
         'End date',
-        st.session_state.get('end_date', max_date),
+        st.session_state.get('end_date', default_end),
         min_value=min_date,
         max_value=max_date,
-        key='end_date_input'
+        key='end_date'
     )
 
     # Mood category filter
@@ -492,7 +501,24 @@ def main():
         st.metric("Total Entries", total_entries)
     
     with col2:
-        st.metric("Average Mood", f"{avg_mood:.3f}")
+        st.metric(
+            "Average Mood", 
+            f"{avg_mood:.3f}",
+            help="""
+            **About the Average Mood Score**
+
+            This score represents the average sentiment of your journal entries within the selected date range.
+
+            - **Calculation**: It's the average of the sentiment polarity scores from all filtered entries. Each entry's content is analyzed to get a score.
+
+            - **Score Range**: The score ranges from **-1.0 (Very Negative)** to **+1.0 (Very Positive)**. A score near 0 indicates a neutral mood.
+
+            - **How to Interpret**:
+                - **Positive score (> 0.1)**: Your entries are generally positive in tone.
+                - **Negative score (< -0.1)**: Your entries are generally negative in tone.
+                - **Neutral score (-0.1 to 0.1)**: Your entries are generally neutral.
+            """
+        )
     
     with col3:
         st.metric("Most Common Mood", most_common_mood)

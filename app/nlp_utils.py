@@ -76,13 +76,19 @@ def extract_keywords(text: str, min_length: int = 4, max_words: int = 50) -> Lis
     # Convert to lowercase and split into words
     words = text.lower().split()
     
-    # Common English stop words that don't add meaning to mood analysis
+    # A more comprehensive list of English stop words
     stop_words = {
-        'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with',
-        'by', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had',
-        'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'can',
-        'this', 'that', 'these', 'those', 'i', 'you', 'he', 'she', 'it', 'we', 'they',
-        'me', 'him', 'her', 'us', 'them', 'my', 'your', 'his', 'her', 'its', 'our', 'their'
+        'about', 'above', 'after', 'again', 'against', 'all', 'am', 'an', 'and', 'any', 'are', 'as', 'at',
+        'be', 'because', 'been', 'before', 'being', 'below', 'between', 'both', 'but', 'by',
+        'can', 'could', 'did', 'do', 'does', 'doing', 'down', 'during', 'each',
+        'few', 'for', 'from', 'further', 'had', 'has', 'have', 'having', 'he', 'her', 'here', 'hers', 'herself',
+        'him', 'himself', 'his', 'how', 'if', 'in', 'into', 'is', 'it', 'its', 'itself',
+        'just', 'me', 'more', 'most', 'my', 'myself', 'no', 'nor', 'not', 'now', 'of', 'off', 'on', 'once',
+        'only', 'or', 'other', 'our', 'ours', 'ourselves', 'out', 'over', 'own', 'same', 'she', 'should', 'so',
+        'some', 'still', 'such', 'than', 'that', 'the', 'their', 'theirs', 'them', 'themselves', 'then', 'there',
+        'these', 'they', 'this', 'those', 'through', 'to', 'too', 'under', 'until', 'up', 'very', 'was', 'we',
+        'were', 'what', 'when', 'where', 'which', 'while', 'who', 'whom', 'why', 'will', 'with', 'would',
+        'you', 'your', 'yours', 'yourself', 'yourselves', 'like', 'im', 'ive', 'also', 'get', 'got'
     }
     
     # Clean and filter words

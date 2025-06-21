@@ -5,6 +5,7 @@ data/*.csv
 data/personal_*.csv
 data/notion_*.csv
 data/my_*.csv
+data/journal_1/
 
 # Database files (contain processed personal data)
 data/*.db
